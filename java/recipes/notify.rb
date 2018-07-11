@@ -1,7 +1,7 @@
 #
-# Author:: Seth Chisamore (<schisamo@chef.io>)
+# Author:: Eric Helgeson (<eric@agileorbit.com>)
 # Cookbook:: java
-# Recipe:: default
+# Recipe:: notify
 #
 # Copyright:: 2008-2015, Chef Software, Inc.
 #
@@ -18,5 +18,16 @@
 # limitations under the License.
 #
 
-include_recipe 'java::set_attributes_from_version'
-include_recipe "java::#{node['java']['install_flavor']}"
+# This resource is avalible for other recipes to subscribe to so they can be
+# notified of a JDK change. For example you want to restart a service to take
+# advantage of the new JDK
+# eg:
+# service 'somejavaservice'
+#   action :restart
+#   subscribes :write, 'log[jdk-version-changed]', :delayed
+# end
+log 'jdk-version-changed' do
+  message 'A new version of java was installed'
+  level :info
+  action :nothing
+end

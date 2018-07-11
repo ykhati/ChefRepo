@@ -1,16 +1,33 @@
-maintainer        "Opscode, Inc."
-maintainer_email  "cookbooks@opscode.com"
-license           "Apache 2.0"
-description       "Installs Java runtime."
+name              'java'
+maintainer        'Sous Chefs'
+maintainer_email  'help@sous-chefs.org'
+license           'Apache-2.0'
+description       'Recipes and resources for installing Java and managing certificates'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "1.4.0"
+version           '2.1.0'
 
-recipe "java", "Installs Java runtime"
-recipe "java::openjdk", "Installs the OpenJDK flavor of Java"
-recipe "java::oracle", "Installs the Oracle flavor of Java"
-recipe "java::oracle_i386", "Installs the 32-bit jvm without setting it as the default"
+supports 'debian'
+supports 'ubuntu'
+supports 'centos'
+supports 'redhat'
+supports 'scientific'
+supports 'fedora'
+supports 'amazon'
+supports 'arch'
+supports 'oracle'
+supports 'freebsd'
+supports 'windows'
+supports 'suse'
+supports 'opensuse'
+supports 'opensuseleap'
+supports 'xenserver'
+supports 'smartos'
+supports 'mac_os_x'
+supports 'zlinux'
 
+depends 'windows'
+depends 'homebrew'
 
-%w{ debian ubuntu centos redhat scientific fedora amazon arch freebsd }.each do |os|
-  supports os
-end
+source_url 'https://github.com/sous-chefs/java'
+issues_url 'https://github.com/sous-chefs/java/issues'
+chef_version '>= 12.9'
