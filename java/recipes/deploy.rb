@@ -11,7 +11,7 @@ node[:deploy].each do |application, deploy|
     execute "run_jar" do
         user                "#{deploy[:user]}"
         cwd                 "#{deploy[:deploy_to]}/current"
-        command             "nohup java -jar #{node[:custom_env][application.to_s]['jar']} > log.txt 2> error.txt < /dev/null &"
+        command             "nohup /usr/bin/java8 -jar #{node[:custom_env][application.to_s]['jar']} > log.txt 2> error.txt < /dev/null &"
     end
 
 end
