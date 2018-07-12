@@ -1,0 +1,12 @@
+{
+   "opsworks_java": {
+       "jvm_version": 8,
+       "java_app_server_version": 8
+   },
+   "custom_env": {
+       "app_gigya": {
+           "type": "java",
+           "jar": "B2BPlatformServices-1.0.0.RELEASE.jar"
+       }
+   }
+}
