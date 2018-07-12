@@ -7,6 +7,12 @@ node[:deploy].each do |application, deploy|
         end
         next
     end
+    
+    execute "stop_jar" do
+        user                "#{deploy[:user]}"
+        command             "pkill -cf #{node[:custom_env][application.to_s]['jar']}"
+        only_if             "pgrep -f #{node[:custom_env][application.to_s]['jar']}"
+    end
 
     execute "run_jar" do
         user                "#{deploy[:user]}"
