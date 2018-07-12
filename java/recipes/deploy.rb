@@ -1,7 +1,17 @@
+node[:deploy].each do |application, deploy|
 
-    execute "run_jar" do
-        user                "deploy"
-        cwd                 "srv/www/app-gigyacurrent"
-        command             "nohup /usr/bin/java8 -jar #{node[application.to_s]['jar']} > /var/log/awslogs.log 2> /var/log/awslogs.log < /dev/null &"
+    if node[:custom_env][application.to_s]["type"] != "java"
+        log "error_incompat" do
+            message         "This application is not a Java application"
+            level           :error
+        end
+        next
     end
 
+    execute "run_jar" do
+        user                "#{deploy[:user]}"
+        cwd                 "#{deploy[:deploy_to]}/current"
+        command             "nohup java -jar #{node[:custom_env][application.to_s]['jar']} > log.txt 2> error.txt < /dev/null &"
+    end
+
+end
