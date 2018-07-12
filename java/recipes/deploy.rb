@@ -1,13 +1,5 @@
 node[:deploy].each do |application, deploy|
 
-    if node[application.to_s]["type"] != "java"
-        log "error_incompat" do
-            message         "This application is not a Java application"
-            level           :error
-        end
-        next
-    end
-
     execute "run_jar" do
         user                "#{deploy[:user]}"
         cwd                 "#{deploy[:deploy_to]}/current"
